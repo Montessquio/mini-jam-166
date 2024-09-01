@@ -1,0 +1,171 @@
+[gd_scene load_steps=16 format=3 uid="uid://bhyh5y032k88s"]
+
+[ext_resource type="Texture2D" uid="uid://cgc88wfohqb7l" path="res://Assets/checker.jpg" id="1_xlvwh"]
+[ext_resource type="Texture2D" uid="uid://b55rndkf3nque" path="res://Assets/PA-Player-Stand.png" id="2_a8duk"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="2_drxel"]
+[ext_resource type="PackedScene" uid="uid://dt5gv3jrlnrfj" path="res://Prefabs/flame_particle.tscn" id="3_3lpxf"]
+[ext_resource type="Texture2D" uid="uid://bc3ytfk5c8jou" path="res://Assets/PA-Player-Walk1.png" id="3_wvjwe"]
+[ext_resource type="Texture2D" uid="uid://cjso3ag6ltb8y" path="res://Assets/PA-Player-Walk2.png" id="4_bkk14"]
+[ext_resource type="Script" path="res://Scenes/flamethrower.gd" id="5_ul8g5"]
+[ext_resource type="Script" path="res://Scripts/debug_text.gd" id="6_00xhr"]
+[ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="7_fs0v8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x2hng"]
+friction = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p2qt1"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p18lh"]
+size = Vector2(100, 100)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0i362"]
+polygon = PackedVector2Array(-0.5, -0.495, -0.5, 0.495, 0.5, 0.495, 0.5, -0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlxks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a8duk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wvjwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bkk14")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pfaxy"]
+radius = 20.0
+
+[node name="Root" type="Node2D"]
+
+[node name="Ambient" type="CanvasModulate" parent="."]
+position = Vector2(0, -1)
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[node name="MapBase" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.239216)
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(2, 2)
+texture = ExtResource("1_xlvwh")
+region_enabled = true
+region_rect = Rect2(0, 0, 8192, 8192)
+
+[node name="FlamesContainer" type="Node2D" parent="MapBase"]
+scale = Vector2(0.5, 0.5)
+
+[node name="PointLight2D" type="PointLight2D" parent="MapBase"]
+position = Vector2(252.5, -138)
+scale = Vector2(0.0703125, 0.0703125)
+blend_mode = 2
+range_layer_min = -512
+range_layer_max = 512
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.2
+texture = ExtResource("7_fs0v8")
+texture_scale = 31.18
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="MapBase"]
+position = Vector2(376, 89)
+physics_material_override = SubResource("PhysicsMaterial_x2hng")
+
+[node name="Sprite2D" type="Sprite2D" parent="MapBase/StaticBody2D3"]
+texture = SubResource("PlaceholderTexture2D_p2qt1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBase/StaticBody2D3"]
+shape = SubResource("RectangleShape2D_p18lh")
+debug_color = Color(0, 0.6, 0.701961, 0.870588)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MapBase/StaticBody2D3"]
+scale = Vector2(100, 100)
+occluder = SubResource("OccluderPolygon2D_0i362")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="MapBase"]
+position = Vector2(275, -277)
+physics_material_override = SubResource("PhysicsMaterial_x2hng")
+
+[node name="Sprite2D" type="Sprite2D" parent="MapBase/StaticBody2D2"]
+texture = SubResource("PlaceholderTexture2D_p2qt1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBase/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_p18lh")
+debug_color = Color(0, 0.6, 0.701961, 0.870588)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MapBase/StaticBody2D2"]
+scale = Vector2(100, 100)
+occluder = SubResource("OccluderPolygon2D_0i362")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBase"]
+position = Vector2(160, -60)
+physics_material_override = SubResource("PhysicsMaterial_x2hng")
+
+[node name="Sprite2D" type="Sprite2D" parent="MapBase/StaticBody2D"]
+texture = SubResource("PlaceholderTexture2D_p2qt1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBase/StaticBody2D"]
+shape = SubResource("RectangleShape2D_p18lh")
+debug_color = Color(0, 0.6, 0.701961, 0.870588)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MapBase/StaticBody2D"]
+scale = Vector2(100, 100)
+occluder = SubResource("OccluderPolygon2D_0i362")
+
+[node name="PlayerView" type="Camera2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PlayerView"]
+offset_left = -571.0
+offset_top = -318.0
+offset_right = -152.0
+offset_bottom = -93.0
+script = ExtResource("6_00xhr")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+wall_min_slide_angle = 3.14159
+floor_stop_on_slope = false
+floor_block_on_wall = false
+floor_max_angle = 3.14159
+platform_on_leave = 2
+platform_floor_layers = 0
+safe_margin = 0.8
+script = ExtResource("2_drxel")
+metadata/_edit_group_ = true
+
+[node name="Flamethrower" type="Node2D" parent="Player"]
+position = Vector2(36.81, -21.04)
+rotation = 1.5708
+script = ExtResource("5_ul8g5")
+particle_prefab = ExtResource("3_3lpxf")
+particle_container = NodePath("../../MapBase/FlamesContainer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(0.25, 0.231)
+sprite_frames = SubResource("SpriteFrames_jlxks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-7.085, 0.35)
+shape = SubResource("CircleShape2D_pfaxy")
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+scale = Vector2(0.375, 0.377531)
+blend_mode = 2
+range_layer_min = -512
+range_layer_max = 512
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.2
+texture = ExtResource("7_fs0v8")

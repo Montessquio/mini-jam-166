@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dt5gv3jrlnrfj"]
+
+[ext_resource type="Script" path="res://Scripts/flame_particle.gd" id="1_hjmpu"]
+[ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="2_072e2"]
+[ext_resource type="Texture2D" uid="uid://denboinvp6ki8" path="res://Assets/flame.png" id="2_vwvc5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0ke8m"]
+bounce = 0.15
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1yr6i"]
+radius = 6.0
+height = 26.0
+
+[node name="FlameParticle" type="RigidBody2D"]
+z_index = 1
+rotation = 3.14159
+collision_layer = 8
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_0ke8m")
+freeze_mode = 1
+script = ExtResource("1_hjmpu")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 1
+color = Color(1, 0.258824, 0, 1)
+shadow_enabled = true
+texture = ExtResource("2_072e2")
+texture_scale = 0.03
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vwvc5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1yr6i")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_1yr6i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

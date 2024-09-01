@@ -1,0 +1,316 @@
+[gd_scene load_steps=27 format=3 uid="uid://bhyh5y032k88s"]
+
+[ext_resource type="Texture2D" uid="uid://cgc88wfohqb7l" path="res://Assets/checker.jpg" id="1_xlvwh"]
+[ext_resource type="Theme" uid="uid://bqnu23mc50ghb" path="res://Assets/healthbar.tres" id="2_5as5j"]
+[ext_resource type="Texture2D" uid="uid://b55rndkf3nque" path="res://Assets/PA-Player-Stand.png" id="2_a8duk"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="2_drxel"]
+[ext_resource type="PackedScene" uid="uid://dt5gv3jrlnrfj" path="res://Prefabs/flame_particle.tscn" id="3_3lpxf"]
+[ext_resource type="Script" path="res://Scripts/enemy_basic.gd" id="3_bce3r"]
+[ext_resource type="Theme" uid="uid://d3iw78udv6ppw" path="res://Assets/fuelbar.tres" id="3_pxnkc"]
+[ext_resource type="Texture2D" uid="uid://bc3ytfk5c8jou" path="res://Assets/PA-Player-Walk1.png" id="3_wvjwe"]
+[ext_resource type="Texture2D" uid="uid://cjso3ag6ltb8y" path="res://Assets/PA-Player-Walk2.png" id="4_bkk14"]
+[ext_resource type="Texture2D" uid="uid://cfd80fclk4wuc" path="res://Assets/PA-EnemyBasic.png" id="4_y46xn"]
+[ext_resource type="Script" path="res://Scripts/flamethrower.gd" id="5_ul8g5"]
+[ext_resource type="Script" path="res://Scripts/debug_text.gd" id="6_00xhr"]
+[ext_resource type="Script" path="res://hitboxdelegator.gd" id="6_i6xal"]
+[ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="7_fs0v8"]
+[ext_resource type="Script" path="res://fuel_pad.gd" id="15_epqxs"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x2hng"]
+friction = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p2qt1"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p18lh"]
+size = Vector2(100, 100)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0i362"]
+polygon = PackedVector2Array(-0.5, -0.495, -0.5, 0.495, 0.5, 0.495, 0.5, -0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulyk7"]
+size = Vector2(64, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e01tp"]
+size = Vector2(64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8owgd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_y46xn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r223t"]
+radius = 22.0
+
+[sub_resource type="Gradient" id="Gradient_5m6ea"]
+offsets = PackedFloat32Array(0, 0.404908, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.392157, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlxks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a8duk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wvjwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bkk14")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pfaxy"]
+radius = 20.0
+
+[node name="Root" type="Node2D"]
+
+[node name="PlayerView" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+drag_left_margin = 0.02
+drag_top_margin = 0.02
+drag_right_margin = 0.02
+drag_bottom_margin = 0.02
+metadata/_edit_group_ = true
+
+[node name="Ambient" type="CanvasModulate" parent="."]
+position = Vector2(576, 323)
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="World" type="Sprite2D" parent="Node"]
+modulate = Color(1, 1, 1, 0.239216)
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(576, 324)
+scale = Vector2(2, 2)
+texture = ExtResource("1_xlvwh")
+region_enabled = true
+region_rect = Rect2(0, 0, 8192, 8192)
+
+[node name="PointLight2D" type="PointLight2D" parent="Node/World"]
+position = Vector2(349, -128)
+scale = Vector2(0.0703639, 0.0706348)
+blend_mode = 2
+range_layer_min = -512
+range_layer_max = 512
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.2
+texture = ExtResource("7_fs0v8")
+texture_scale = 31.18
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Node/World"]
+position = Vector2(376, 89)
+physics_material_override = SubResource("PhysicsMaterial_x2hng")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/World/StaticBody2D3"]
+texture = SubResource("PlaceholderTexture2D_p2qt1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/World/StaticBody2D3"]
+shape = SubResource("RectangleShape2D_p18lh")
+debug_color = Color(0, 0.6, 0.701961, 0.870588)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Node/World/StaticBody2D3"]
+scale = Vector2(100, 100)
+occluder = SubResource("OccluderPolygon2D_0i362")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Node/World"]
+position = Vector2(275, -277)
+physics_material_override = SubResource("PhysicsMaterial_x2hng")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/World/StaticBody2D2"]
+texture = SubResource("PlaceholderTexture2D_p2qt1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/World/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_p18lh")
+debug_color = Color(0, 0.6, 0.701961, 0.870588)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Node/World/StaticBody2D2"]
+scale = Vector2(100, 100)
+occluder = SubResource("OccluderPolygon2D_0i362")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node/World"]
+position = Vector2(160, -60)
+physics_material_override = SubResource("PhysicsMaterial_x2hng")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/World/StaticBody2D"]
+texture = SubResource("PlaceholderTexture2D_p2qt1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/World/StaticBody2D"]
+shape = SubResource("RectangleShape2D_p18lh")
+debug_color = Color(0, 0.6, 0.701961, 0.870588)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Node/World/StaticBody2D"]
+scale = Vector2(100, 100)
+occluder = SubResource("OccluderPolygon2D_0i362")
+
+[node name="FuelPad" type="Area2D" parent="Node"]
+position = Vector2(698, 266)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("15_epqxs")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/FuelPad"]
+shape = SubResource("RectangleShape2D_ulyk7")
+debug_color = Color(1, 1, 1, 0.827451)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/FuelPad"]
+texture = SubResource("PlaceholderTexture2D_e01tp")
+
+[node name="EntityContainer" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="EnemyBasic" type="RigidBody2D" parent="EntityContainer"]
+position = Vector2(-69, -133)
+collision_layer = 4
+collision_mask = 3
+collision_priority = 2.0
+script = ExtResource("3_bce3r")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="EntityContainer/EnemyBasic"]
+energy = 0.52
+texture = ExtResource("7_fs0v8")
+texture_scale = 0.25
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EntityContainer/EnemyBasic"]
+position = Vector2(-1.9, 1.8)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_8owgd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityContainer/EnemyBasic"]
+position = Vector2(0.1, -0.199999)
+shape = SubResource("CircleShape2D_r223t")
+
+[node name="EnemyBasicHitbox" type="Area2D" parent="EntityContainer/EnemyBasic"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("6_i6xal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityContainer/EnemyBasic/EnemyBasicHitbox"]
+position = Vector2(0.1, -0.199999)
+shape = SubResource("CircleShape2D_r223t")
+
+[node name="EnflamedParticles" type="CPUParticles2D" parent="EntityContainer/EnemyBasic"]
+amount = 800
+lifetime = 0.15
+speed_scale = 0.5
+explosiveness = 0.04
+randomness = 1.0
+lifetime_randomness = 0.15
+emission_shape = 1
+emission_sphere_radius = 19.89
+spread = 75.8
+gravity = Vector2(0, -980)
+color_ramp = SubResource("Gradient_5m6ea")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+z_index = 4
+position = Vector2(576, 324)
+collision_layer = 2
+collision_mask = 5
+wall_min_slide_angle = 3.14159
+floor_stop_on_slope = false
+floor_block_on_wall = false
+floor_max_angle = 3.14159
+platform_on_leave = 2
+platform_floor_layers = 0
+safe_margin = 0.8
+script = ExtResource("2_drxel")
+metadata/_edit_group_ = true
+
+[node name="Flamethrower" type="Node2D" parent="Player"]
+position = Vector2(36.81, -21.04)
+rotation = 1.5708
+script = ExtResource("5_ul8g5")
+fuel_bar = NodePath("../../CanvasLayer/FuelBar")
+particle_prefab = ExtResource("3_3lpxf")
+particle_container = NodePath("../../FlamesContainer")
+particle_birth_force_magnitude = 240.0
+particle_lifetime_range = Vector2(0.5, 1)
+particle_spread_range = Vector2(-2, 2)
+particle_quantity_mult = Vector2(1, 3)
+max_fuel = 1000
+total_hits = 1
+hit_damage = 1
+enflame_time = 5.0
+enflame_max_time = 12.0
+enflame_tick_damage = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(0.25, 0.231)
+sprite_frames = SubResource("SpriteFrames_jlxks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-7.085, 0.35)
+shape = SubResource("CircleShape2D_pfaxy")
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+scale = Vector2(0.375, 0.377531)
+blend_mode = 2
+range_layer_min = -512
+range_layer_max = 512
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.2
+texture = ExtResource("7_fs0v8")
+
+[node name="FlamesContainer" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 5.0
+offset_top = 406.0
+offset_right = 424.0
+offset_bottom = 631.0
+script = ExtResource("6_00xhr")
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+top_level = true
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 310.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme = ExtResource("2_5as5j")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="FuelBar" type="ProgressBar" parent="CanvasLayer"]
+top_level = true
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 310.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme = ExtResource("3_pxnkc")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_entered" from="Node/FuelPad" to="Player" method="_on_fuel_pad_area_entered"]
+[connection signal="area_exited" from="Node/FuelPad" to="Player" method="_on_fuel_pad_area_exited"]
+[connection signal="body_entered" from="Node/FuelPad" to="Player" method="_on_fuel_pad_body_entered"]
+[connection signal="body_exited" from="Node/FuelPad" to="Player" method="_on_fuel_pad_body_exited"]

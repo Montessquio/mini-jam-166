@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://b538spx1yy0gn"]
+
+[ext_resource type="Texture2D" uid="uid://b8m7ocvxs0343" path="res://Assets/square.png" id="1_0k6wg"]
+[ext_resource type="PackedScene" uid="uid://cq4wjhuvn287w" path="res://Prefabs/upgrade.tscn" id="2_rjft8"]
+
+[node name="UpgradeShop" type="CanvasLayer"]
+
+[node name="Background-Border" type="Sprite2D" parent="."]
+modulate = Color(0.244776, 0.244776, 0.244776, 1)
+position = Vector2(574, 320)
+scale = Vector2(2.57, 1.42)
+texture = ExtResource("1_0k6wg")
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 1036.0
+offset_top = 51.0
+offset_right = 1054.0
+offset_bottom = 82.0
+text = "X"
+flat = true
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 85.0
+offset_right = 1060.0
+offset_bottom = 585.0
+
+[node name="Background" type="Sprite2D" parent="Control"]
+modulate = Color(0.408329, 0.408329, 0.408329, 1)
+clip_children = 2
+position = Vector2(488, 249)
+scale = Vector2(10, 10)
+texture = ExtResource("1_0k6wg")
+
+[node name="ResourceList" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 975.0
+offset_bottom = 40.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 973.565
+offset_bottom = 500.035
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
+custom_minimum_size = Vector2(960, 0)
+layout_mode = 2
+
+[node name="Purchaseable" type="HFlowContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Upgrade" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade2" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade3" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade4" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade5" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade6" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade7" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="PurchasedLabel" type="RichTextLabel" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center]Purchased[/center]"
+fit_content = true
+shortcut_keys_enabled = false
+
+[node name="Purchased" type="HFlowContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Upgrade" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade2" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade3" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade4" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
+layout_mode = 2
+
+[node name="Upgrade5" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
+layout_mode = 2

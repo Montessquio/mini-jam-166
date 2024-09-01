@@ -1,0 +1,247 @@
+[gd_scene load_steps=22 format=3 uid="uid://bhyh5y032k88s"]
+
+[ext_resource type="PackedScene" uid="uid://bw123h7ekkjoq" path="res://Prefabs/Map/map.tscn" id="1_lncit"]
+[ext_resource type="Script" path="res://Scripts/enemy_basic.gd" id="2_8ypic"]
+[ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="3_dkg7k"]
+[ext_resource type="Texture2D" uid="uid://cfd80fclk4wuc" path="res://Assets/PA-EnemyBasic.png" id="4_ut6up"]
+[ext_resource type="Script" path="res://Scripts/hitboxdelegator.gd" id="5_d6xow"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="6_hesj5"]
+[ext_resource type="PackedScene" uid="uid://dt5gv3jrlnrfj" path="res://Prefabs/flame_particle.tscn" id="7_o6obd"]
+[ext_resource type="Script" path="res://Scripts/flamethrower.gd" id="8_q1m42"]
+[ext_resource type="Texture2D" uid="uid://b55rndkf3nque" path="res://Assets/PA-Player-Stand.png" id="9_0swm8"]
+[ext_resource type="Texture2D" uid="uid://bc3ytfk5c8jou" path="res://Assets/PA-Player-Walk1.png" id="10_rmtk0"]
+[ext_resource type="Texture2D" uid="uid://cjso3ag6ltb8y" path="res://Assets/PA-Player-Walk2.png" id="11_xxt0o"]
+[ext_resource type="Script" path="res://Scripts/debug_text.gd" id="12_oh1n8"]
+[ext_resource type="Theme" uid="uid://bqnu23mc50ghb" path="res://Assets/healthbar.tres" id="13_6684p"]
+[ext_resource type="Theme" uid="uid://d3iw78udv6ppw" path="res://Assets/fuelbar.tres" id="14_u7yjp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8owgd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ut6up")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r223t"]
+radius = 22.0102
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0lcjc"]
+radius = 25.2517
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vb4f1"]
+radius = 62.9051
+
+[sub_resource type="Gradient" id="Gradient_5m6ea"]
+offsets = PackedFloat32Array(0, 0.404908, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.392157, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlxks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_0swm8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_rmtk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_xxt0o")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pfaxy"]
+radius = 20.0
+
+[node name="Root" type="Node2D"]
+
+[node name="PlayerView" type="Camera2D" parent="."]
+position = Vector2(576, 321)
+drag_left_margin = 0.02
+drag_top_margin = 0.02
+drag_right_margin = 0.02
+drag_bottom_margin = 0.02
+metadata/_edit_group_ = true
+
+[node name="Ambient" type="CanvasModulate" parent="."]
+position = Vector2(576, 323)
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[node name="Map" parent="." instance=ExtResource("1_lncit")]
+position = Vector2(-11650, -11370)
+
+[node name="EntityContainer" type="Node2D" parent="."]
+z_index = 4
+position = Vector2(576, 324)
+
+[node name="EnemyBasic" type="RigidBody2D" parent="EntityContainer"]
+position = Vector2(-69, -133)
+collision_layer = 4
+collision_mask = 3
+collision_priority = 2.0
+script = ExtResource("2_8ypic")
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="EntityContainer/EnemyBasic"]
+energy = 0.52
+texture = ExtResource("3_dkg7k")
+texture_scale = 0.25
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EntityContainer/EnemyBasic"]
+position = Vector2(-1.9, 1.8)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_8owgd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityContainer/EnemyBasic"]
+position = Vector2(0.1, -0.199999)
+shape = SubResource("CircleShape2D_r223t")
+
+[node name="EnemyBasicHurtBox" type="Area2D" parent="EntityContainer/EnemyBasic"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("5_d6xow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityContainer/EnemyBasic/EnemyBasicHurtBox"]
+position = Vector2(0.1, -0.199999)
+shape = SubResource("CircleShape2D_0lcjc")
+
+[node name="EnemyBasicHitBox" type="Area2D" parent="EntityContainer/EnemyBasic"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityContainer/EnemyBasic/EnemyBasicHitBox"]
+position = Vector2(0.1, -0.199999)
+shape = SubResource("CircleShape2D_vb4f1")
+
+[node name="EnflamedParticles" type="CPUParticles2D" parent="EntityContainer/EnemyBasic"]
+amount = 800
+lifetime = 0.15
+speed_scale = 0.5
+explosiveness = 0.04
+randomness = 1.0
+lifetime_randomness = 0.15
+emission_shape = 1
+emission_sphere_radius = 19.89
+spread = 75.8
+gravity = Vector2(0, -980)
+color_ramp = SubResource("Gradient_5m6ea")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+z_index = 4
+position = Vector2(576, 324)
+collision_layer = 2
+collision_mask = 5
+wall_min_slide_angle = 3.14159
+floor_stop_on_slope = false
+floor_block_on_wall = false
+floor_max_angle = 3.14159
+platform_on_leave = 2
+platform_floor_layers = 0
+safe_margin = 0.8
+script = ExtResource("6_hesj5")
+move_speed = 480.0
+aim_speed = null
+max_health = 1000.0
+max_fuel = 1000.0
+flamer_particle_birth_force_magnitude = 480.0
+flamer_particle_lifetime_range = Vector2(0.25, 0.75)
+flamer_particle_spread_range = Vector2(-2, 2)
+flamer_particle_quantity_mult = Vector2(1, 3)
+flamer_particle_hp = 1
+flamer_particle_hit_damage = 1.0
+flamer_particle_hit_stun_inc = null
+flamer_particle_hit_stun_max = null
+flamer_particle_enflame_time = 5.0
+flamer_particle_enflame_max_time = 12.0
+flamer_particle_enflame_tick_damage = 1.0
+fuel_regen_per_tick = null
+health_pad_regen_per_tick = null
+player_camera = NodePath("../PlayerView")
+health_bar = NodePath("../CanvasLayer/HealthBar")
+fuel_bar = NodePath("../CanvasLayer/FuelBar")
+particle_container = NodePath("../FlamesContainer")
+flamer_particle_prefab = ExtResource("7_o6obd")
+metadata/_edit_group_ = true
+
+[node name="Flamethrower" type="Node2D" parent="Player"]
+position = Vector2(36.81, -21.04)
+rotation = 1.5708
+script = ExtResource("8_q1m42")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(0.25, 0.231)
+sprite_frames = SubResource("SpriteFrames_jlxks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-7.085, 0.35)
+shape = SubResource("CircleShape2D_pfaxy")
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+scale = Vector2(0.375, 0.377531)
+blend_mode = 2
+range_layer_min = -512
+range_layer_max = 512
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.2
+texture = ExtResource("3_dkg7k")
+texture_scale = 0.5
+
+[node name="Node" type="Node" parent="Player"]
+
+[node name="FlamesContainer" type="Node2D" parent="."]
+top_level = true
+visibility_layer = 15
+z_index = 6
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 2.0
+offset_top = 406.0
+offset_right = 421.0
+offset_bottom = 631.0
+bbcode_enabled = true
+script = ExtResource("12_oh1n8")
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+top_level = true
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 310.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme = ExtResource("13_6684p")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="FuelBar" type="ProgressBar" parent="CanvasLayer"]
+top_level = true
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 310.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme = ExtResource("14_u7yjp")
+max_value = 1.0
+step = 0.001
+value = 0.5
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[connection signal="body_entered" from="EntityContainer/EnemyBasic/EnemyBasicHitBox" to="EntityContainer/EnemyBasic" method="_on_enemy_basic_hit_box_body_entered"]
+[connection signal="body_exited" from="EntityContainer/EnemyBasic/EnemyBasicHitBox" to="EntityContainer/EnemyBasic" method="_on_enemy_basic_hit_box_body_exited"]

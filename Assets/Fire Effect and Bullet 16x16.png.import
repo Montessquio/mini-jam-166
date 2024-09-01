@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://dd7dobo2gt8gi"
+path="res://.godot/imported/Fire Effect and Bullet 16x16.png-aab769d2f58b7c75d14049e00eec3065.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Assets/Fire Effect and Bullet 16x16.png"
+dest_files=["res://.godot/imported/Fire Effect and Bullet 16x16.png-aab769d2f58b7c75d14049e00eec3065.ctexarray"]
+
+[params]
+
+compress/mode=3
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=36
+slices/vertical=13

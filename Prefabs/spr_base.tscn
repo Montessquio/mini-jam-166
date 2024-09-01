@@ -1,0 +1,122 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8evs1d87t8x"]
+
+[ext_resource type="Texture2D" uid="uid://bhqb1f6tgga8f" path="res://Assets/spr_base.png" id="1_c4kit"]
+[ext_resource type="Texture2D" uid="uid://drl6ecvn8or7" path="res://Assets/deposit_paint.png" id="2_bv3l5"]
+[ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="3_vjs1i"]
+[ext_resource type="Texture2D" uid="uid://cy83o1a30g8o" path="res://Assets/Store_paint.png" id="4_fb2le"]
+[ext_resource type="Script" path="res://Scripts/store_window_light.gd" id="5_go8qm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulyk7"]
+size = Vector2(1217, 1106)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jhnqb"]
+polygon = PackedVector2Array(8136.28, 1868.77, 8143.38, 1939.55, 8221.54, 2038.66, 8335.24, 2088.21, 8470.25, 2088.21, 8583.95, 2045.73, 8683.43, 1939.55, 8704.75, 1812.14, 8669.22, 1670.56, 8569.74, 1599.78, 8463.15, 1585.62, 8292.61, 1592.7, 8221.54, 1649.33, 8164.7, 1727.19, 8143.38, 1790.9)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_u3wpq"]
+polygon = PackedVector2Array(-153, 105, -153, -68, -154, -116, -151, -163, -154, -238, -151, -374, -145, -379, -134, -381, 13, -381, 332, -384, 344, -386, 360, -380, 358, -343, 317, -343, 310, -338, 309, -331, 308, -183, 310, -16, 311, -7, 315, -2, 322, -1, 357, -1, 359, 3, 355, 231, 352, 237, 345, 247, 329, 254, 237, 253, 225, 239, 212, 234, 196, 234, 176, 238, 167, 248, 163, 254, 63, 250, 17, 253, -78, 251, -122, 252, -131, 251, -142, 242, -151, 232, -150, 195, -143, 194, -147, 115)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_w2tqv"]
+polygon = PackedVector2Array(-153, 105, -147, 114, -199, 115, -202, 192, -205, 189, -205, 145, -205, 127, -208, 118, -245, 118, -302, 119, -394, 120, -393, 123, -399, 157, -398, 117, -492, 118, -499, 120, -503, 124, -504, 130, -506, 192, -504, 278, -507, 334, -507, 389, -505, 402, -500, 409, -486, 416, -478, 418, -447, 420, -376, 421, -173, 417, -173, 417, -119, 415, -106, 406, -109, 389, -111, 379, -122, 379, -122, 383, -126, 382, -130, 380, -240, 381, -237, 386, -238, 394, -246, 400, -257, 399, -263, 396, -265, 388, -275, 376, -274, 368, -269, 364, -257, 362, -250, 362, -250, 358, -242, 358, -242, 361, -131, 359, -129, 357, -126, 357, -122, 359, -121, 361, -111, 361, -109, 352, -106, 349, -100, 350, -100, 334, -102, 332, -101, 331, -112, 330, -113, 321, -198, 323, -200, 329, -208, 333, -215, 334, -224, 328, -230, 319, -231, 308, -224, 300, -214, 298, -209, 299, -206, 295, -200, 296, -200, 297, -130, 298, -128, 295, -123, 295, -120, 298, -112, 298, -111, 291, -107, 288, -102, 288, -100, 283, -108, 279, -121, 263, -134, 262, -145, 255, -153, 246, -155, 233, -154, 194, -144, 193, -146, 115, -154, 104)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_uf2qq"]
+polygon = PackedVector2Array(-274, 369, -19, 368, 98, 368, 98, 361, 87, 355, 46, 356, 38, 350, -108, 350, -111, 363, -122, 361, -125, 358, -130, 360, -242, 361, -242, 358, -249, 358, -251, 362, -272, 364, -275, 369)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7n5ho"]
+polygon = PackedVector2Array(-228, 307, -113, 306, 118, 306, 119, 301, 110, 294, 44, 294, 39, 285, 38, 279, -96, 282, -97, 288, -108, 288, -113, 298, -206, 296, -219, 300)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ufmii"]
+polygon = PackedVector2Array(40, 345, 153, 345, 155, 310, 140, 309, 136, 305, 120, 307, 116, 315, 101, 324, 90, 325, 84, 319, 44, 319, 40, 325)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_opojb"]
+polygon = PackedVector2Array(154, 354, 181, 354, 178, 348, 172, 343, 154, 344)
+
+[node name="SprBase" type="Sprite2D"]
+z_index = 1
+position = Vector2(842, -133)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_c4kit")
+
+[node name="FuelPad" type="Area2D" parent="."]
+z_index = 2
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FuelPad"]
+shape = SubResource("RectangleShape2D_ulyk7")
+debug_color = Color(1, 0, 0, 0.0588235)
+
+[node name="HealthPad" type="Area2D" parent="."]
+z_index = 2
+position = Vector2(4, 0)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthPad"]
+shape = SubResource("RectangleShape2D_ulyk7")
+debug_color = Color(0, 0.966667, 1, 0.231373)
+
+[node name="LightOccluder2D8" type="LightOccluder2D" parent="."]
+position = Vector2(-986, 10)
+scale = Vector2(0.140728, 0.14127)
+occluder = SubResource("OccluderPolygon2D_jhnqb")
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_u3wpq")
+
+[node name="LightOccluder2D5" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_w2tqv")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_uf2qq")
+
+[node name="LightOccluder2D4" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_7n5ho")
+
+[node name="LightOccluder2D6" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ufmii")
+
+[node name="deposit_paint" type="Sprite2D" parent="."]
+position = Vector2(-379.175, -43.09)
+texture = ExtResource("2_bv3l5")
+
+[node name="PointLight2D" type="PointLight2D" parent="deposit_paint"]
+color = Color(1, 0.831373, 0.286275, 1)
+texture = ExtResource("2_bv3l5")
+
+[node name="PointLight2D3" type="PointLight2D" parent="deposit_paint"]
+position = Vector2(10.175, 85.09)
+scale = Vector2(0.301758, 0.169922)
+color = Color(0.890196, 0.2, 0, 1)
+energy = 1.78
+texture = ExtResource("3_vjs1i")
+
+[node name="store_paint" type="Sprite2D" parent="."]
+position = Vector2(512.01, -188.47)
+texture = ExtResource("4_fb2le")
+
+[node name="PointLight2D" type="PointLight2D" parent="store_paint"]
+position = Vector2(1.97998, -3.06)
+color = Color(1, 0.831373, 0.286275, 1)
+texture = ExtResource("4_fb2le")
+
+[node name="StoreWindowLight" type="PointLight2D" parent="store_paint"]
+position = Vector2(-166.01, -47.53)
+scale = Vector2(0.0445523, 0.417969)
+color = Color(0.18433, 0.515144, 0.816101, 1)
+energy = 1.78
+shadow_enabled = true
+texture = ExtResource("3_vjs1i")
+script = ExtResource("5_go8qm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-217, 60, -220, -1, -222, -64, -221, -205, -221, -302, -219, -364, -214, -407, -209, -429, -201, -438, -183, -444, -157, -447, -114, -448, -89, -451, 4, -447, 110, -450, 186, -452, 261, -450, 334, -447, 359, -450, 381, -447, 402, -443, 414, -437, 423, -418, 425, -391, 422, -356, 427, -309, 427, -270, 426, -156, 401, -150, 402, -38, 423, -37, 424, 48, 426, 118, 424, 180, 420, 240, 420, 256, 421, 267, 416, 290, 405, 308, 387, 314, 331, 317, 227, 321, 224, 330, 217, 333, 209, 365, 197, 372, 169, 374, 153, 375, 153, 382, 139, 384, 131, 397, 123, 398, 119, 404, 110, 406, 47, 408, 45, 422, 41, 425, 35, 425, 30, 422, 8, 424, -88, 426, -88, 431, -94, 441, -107, 450, -133, 452, -255, 453, -298, 453, -350, 452, -386, 451, -389, 455, -442, 455, -444, 451, -471, 452, -490, 448, -509, 444, -521, 435, -530, 423, -534, 387, -536, 339, -536, 300, -550, 296, -571, 280, -579, 269, -589, 242, -591, 220, -590, 201, -580, 179, -578, 172, -571, 159, -554, 147, -538, 142, -537, 108, -533, 90, -528, 76, -517, 69, -500, 65, -468, 65, -472, 43, -452, 41, -386, 40, -310, 42, -281, 41, -279, 62)
+
+[node name="LightOccluder2D7" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_opojb")
