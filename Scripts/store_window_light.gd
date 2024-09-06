@@ -1,6 +1,5 @@
 extends PointLight2D
 
-var _rand = RandomNumberGenerator.new()
 var state: int = 0
 var ticker: int = 0
 
@@ -10,25 +9,25 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	match state:
 		0:
 			energy = 2.0
 			ticker += 1
-			if ticker > _rand.randi_range(120, 600):
+			if ticker > randi_range(120, 600):
 				ticker = 0
 				state = 1
 		1:	
 			energy = 1.0
 			ticker += 1
-			if ticker > _rand.randi_range(12, 60):
+			if ticker > randi_range(12, 60):
 				ticker = 0
-				state = _rand.randi_range(0, 2)
+				state = randi_range(0, 2)
 		2:
 			energy = 0.1
 			ticker += 1
-			if ticker > _rand.randi_range(1, 12):
+			if ticker > randi_range(1, 12):
 				ticker = 0
-				state = _rand.randi_range(0, 2)
+				state = randi_range(0, 2)
 		_:
 			state = 0

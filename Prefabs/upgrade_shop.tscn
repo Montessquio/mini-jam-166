@@ -1,9 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://b538spx1yy0gn"]
+[gd_scene load_steps=9 format=3 uid="uid://b538spx1yy0gn"]
 
 [ext_resource type="Texture2D" uid="uid://b8m7ocvxs0343" path="res://Assets/square.png" id="1_0k6wg"]
-[ext_resource type="PackedScene" uid="uid://cq4wjhuvn287w" path="res://Prefabs/upgrade.tscn" id="2_rjft8"]
+[ext_resource type="Script" path="res://Scripts/upgrade_shop.gd" id="1_xx03s"]
+[ext_resource type="Texture2D" uid="uid://3ticbahi7odx" path="res://Assets/Charcoal.png" id="3_sdfal"]
+[ext_resource type="Texture2D" uid="uid://c2kvr8wtbuu3a" path="res://Assets/Oil_Seed.png" id="4_iwnrr"]
+[ext_resource type="Texture2D" uid="uid://cdx2gwo6q7mks" path="res://Assets/Volatile_amber.png" id="5_2h75k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_px6ur"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_h7p6m"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_03jmi"]
+font_size = 24
 
 [node name="UpgradeShop" type="CanvasLayer"]
+script = ExtResource("1_xx03s")
+purchaseable_container = NodePath("Control/ScrollContainer/VBoxContainer/Purchaseable")
+purchased_container = NodePath("Control/ScrollContainer/VBoxContainer/Purchased")
+current_resources_container = NodePath("Control/ResourceList")
 
 [node name="Background-Border" type="Sprite2D" parent="."]
 modulate = Color(0.244776, 0.244776, 0.244776, 1)
@@ -36,46 +52,72 @@ scale = Vector2(10, 10)
 texture = ExtResource("1_0k6wg")
 
 [node name="ResourceList" type="HBoxContainer" parent="Control"]
+clip_contents = true
+layout_direction = 2
 layout_mode = 0
-offset_right = 975.0
-offset_bottom = 40.0
+offset_left = 13.0
+offset_right = 953.0
+offset_bottom = 37.0
+
+[node name="CharcoalAmount" type="Label" parent="Control/ResourceList"]
+layout_mode = 2
+text = "0000"
+label_settings = SubResource("LabelSettings_px6ur")
+horizontal_alignment = 2
+
+[node name="Charcoal" type="TextureRect" parent="Control/ResourceList"]
+layout_mode = 2
+texture = ExtResource("3_sdfal")
+expand_mode = 3
+
+[node name="VSeparator" type="VSeparator" parent="Control/ResourceList"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="OilSeedAmount" type="Label" parent="Control/ResourceList"]
+layout_mode = 2
+text = "0000
+"
+label_settings = SubResource("LabelSettings_h7p6m")
+horizontal_alignment = 2
+
+[node name="OilSeed" type="TextureRect" parent="Control/ResourceList"]
+layout_mode = 2
+texture = ExtResource("4_iwnrr")
+expand_mode = 3
+
+[node name="VSeparator3" type="VSeparator" parent="Control/ResourceList"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="VolatileAmberAmount" type="Label" parent="Control/ResourceList"]
+layout_mode = 2
+text = "0000"
+label_settings = SubResource("LabelSettings_03jmi")
+horizontal_alignment = 2
+
+[node name="VolatileAmber" type="TextureRect" parent="Control/ResourceList"]
+layout_mode = 2
+texture = ExtResource("5_2h75k")
+expand_mode = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control"]
 layout_mode = 0
+offset_left = 12.0
 offset_top = 40.0
-offset_right = 973.565
+offset_right = 972.225
 offset_bottom = 500.035
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
-custom_minimum_size = Vector2(960, 0)
+custom_minimum_size = Vector2(940, 0)
 layout_mode = 2
 
 [node name="Purchaseable" type="HFlowContainer" parent="Control/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Upgrade" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade2" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade3" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade4" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade5" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade6" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade7" parent="Control/ScrollContainer/VBoxContainer/Purchaseable" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
 [node name="PurchasedLabel" type="RichTextLabel" parent="Control/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "
@@ -86,17 +128,4 @@ shortcut_keys_enabled = false
 [node name="Purchased" type="HFlowContainer" parent="Control/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Upgrade" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade2" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade3" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade4" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
-layout_mode = 2
-
-[node name="Upgrade5" parent="Control/ScrollContainer/VBoxContainer/Purchased" instance=ExtResource("2_rjft8")]
-layout_mode = 2
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://kef6jgi2q8mw"]
+
+[ext_resource type="Script" path="res://Scripts/pickup.gd" id="1_61fcc"]
+[ext_resource type="Texture2D" uid="uid://3ticbahi7odx" path="res://Assets/Charcoal.png" id="2_7w04o"]
+[ext_resource type="Texture2D" uid="uid://c2kvr8wtbuu3a" path="res://Assets/Oil_Seed.png" id="3_6acrf"]
+[ext_resource type="AudioStream" uid="uid://bhebobmhiqm0q" path="res://Assets/Music/beep.wav" id="3_gq7fr"]
+[ext_resource type="Texture2D" uid="uid://cdx2gwo6q7mks" path="res://Assets/Volatile_amber.png" id="4_jjyrc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0paq4"]
+radius = 29.0689
+
+[node name="Pickup" type="Area2D"]
+position = Vector2(10941, 14697)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_61fcc")
+charcoal_img = ExtResource("2_7w04o")
+oil_seed_img = ExtResource("3_6acrf")
+volatile_amber_img = ExtResource("4_jjyrc")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_7w04o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0paq4")
+
+[node name="Beeper" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gq7fr")
+
+[connection signal="finished" from="Beeper" to="." method="_on_beeper_finished"]

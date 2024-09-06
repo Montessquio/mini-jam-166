@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://cq4wjhuvn287w"]
+[gd_scene load_steps=18 format=4 uid="uid://cq4wjhuvn287w"]
 
-[ext_resource type="Script" path="res://Prefabs/upgrade.gd" id="1_1i30b"]
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="1_lt3ts"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf31l"]
 bg_color = Color(0.75, 0.56875, 0.315, 1)
@@ -11,6 +11,9 @@ corner_radius_bottom_left = 12
 shadow_color = Color(0, 0, 0, 0.290196)
 shadow_size = 4
 shadow_offset = Vector2(4, 4)
+
+[sub_resource type="FontVariation" id="FontVariation_n0odb"]
+spacing_bottom = -8
 
 [sub_resource type="Image" id="Image_1ods4"]
 data = {
@@ -1677,7 +1680,7 @@ custom_minimum_size = Vector2(256, 128)
 offset_right = 256.0
 offset_bottom = 128.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bf31l")
-script = ExtResource("1_1i30b")
+script = ExtResource("1_lt3ts")
 
 [node name="Name" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -1691,9 +1694,10 @@ text = "[center][b]NAME[/b][/center]"
 [node name="Effect" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 22.0
-offset_right = 244.79
-offset_bottom = 91.24
+offset_top = 31.0
+offset_right = 245.0
+offset_bottom = 91.0
+theme_override_fonts/normal_font = SubResource("FontVariation_n0odb")
 text = "+XX TO YY
 +ZZ TO AA
 +QQ TO FF"
@@ -1712,8 +1716,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_r8gys")
 text = "BUY"
 
 [node name="Costs" type="HBoxContainer" parent="."]
+clip_contents = true
 layout_mode = 0
-offset_left = 3.0
+offset_left = 13.0
 offset_top = 90.0
-offset_right = 207.15
+offset_right = 207.0
 offset_bottom = 122.0

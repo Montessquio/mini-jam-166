@@ -1,0 +1,136 @@
+[gd_scene load_steps=11 format=3 uid="uid://6axfgs1phkjr"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_3itlq"]
+[ext_resource type="PackedScene" uid="uid://dt5gv3jrlnrfj" path="res://Prefabs/flame_particle.tscn" id="2_xgufa"]
+[ext_resource type="Script" path="res://Scripts/flamethrower.gd" id="3_6ok1q"]
+[ext_resource type="Texture2D" uid="uid://dv75awfljq4lb" path="res://Assets/spr_player_ded.png" id="4_iy7v1"]
+[ext_resource type="Texture2D" uid="uid://dcc0fdmil000o" path="res://Assets/spr_player.png" id="4_yaf8r"]
+[ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="7_nrufc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlxks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_iy7v1")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_yaf8r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_yaf8r")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pfaxy"]
+radius = 30.092
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2oho"]
+radius = 30.1552
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mi0tp"]
+radius = 970.044
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 4
+position = Vector2(575, 313)
+collision_layer = 2
+collision_mask = 5
+wall_min_slide_angle = 3.14159
+floor_stop_on_slope = false
+floor_block_on_wall = false
+floor_max_angle = 3.14159
+platform_on_leave = 2
+platform_floor_layers = 0
+safe_margin = 0.8
+script = ExtResource("1_3itlq")
+move_speed = 480.0
+max_health = 1000.0
+max_fuel = 1000.0
+flamer_particle_birth_force_magnitude = 480.0
+flamer_particle_lifetime_range = Vector2(0.25, 0.75)
+flamer_particle_spread_range = Vector2(-2, 2)
+flamer_particle_quantity_mult = Vector2(1, 3)
+flamer_particle_hp = 1
+flamer_particle_hit_damage = 1.0
+flamer_particle_enflame_time = 5.0
+flamer_particle_enflame_max_time = 12.0
+flamer_particle_enflame_tick_damage = 1.0
+player_camera = NodePath("../PlayerView")
+health_bar = NodePath("../CanvasLayer/HealthBar")
+fuel_bar = NodePath("../CanvasLayer/FuelBar")
+particle_container = NodePath("../FlamesContainer")
+flamer_particle_prefab = ExtResource("2_xgufa")
+metadata/_edit_group_ = true
+
+[node name="Flamethrower" type="Node2D" parent="."]
+position = Vector2(36.34, 0)
+rotation = 1.5708
+script = ExtResource("3_6ok1q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.55, 0.508)
+sprite_frames = SubResource("SpriteFrames_jlxks")
+
+[node name="PlayerPhysicsBox" type="CollisionShape2D" parent="."]
+position = Vector2(-7.085, 0.35)
+shape = SubResource("CircleShape2D_pfaxy")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-4, 0)
+scale = Vector2(0.375, 0.377531)
+blend_mode = 2
+range_layer_min = -512
+range_layer_max = 512
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.2
+texture = ExtResource("7_nrufc")
+texture_scale = 0.5
+
+[node name="PlayerTriggerBox" type="Area2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerTriggerBox"]
+position = Vector2(-7.085, 0.35)
+shape = SubResource("CircleShape2D_pfaxy")
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox"]
+position = Vector2(-7.11, 0.65)
+shape = SubResource("CircleShape2D_t2oho")
+
+[node name="PlayerActivationBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerActivationBox"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_mi0tp")
+debug_color = Color(3.27289e-06, 0.642418, 0.318067, 0.42)
+
+[connection signal="area_entered" from="PlayerTriggerBox" to="." method="_on_player_trigger_box_area_entered"]
+[connection signal="area_exited" from="PlayerTriggerBox" to="." method="_on_player_trigger_box_area_exited"]
+[connection signal="area_entered" from="PlayerHurtBox" to="." method="_on_player_hurt_box_area_entered"]
+[connection signal="area_exited" from="PlayerHurtBox" to="." method="_on_player_hurt_box_area_exited"]
+[connection signal="area_entered" from="PlayerActivationBox" to="." method="_on_player_activation_box_area_entered"]
+[connection signal="area_exited" from="PlayerActivationBox" to="." method="_on_player_activation_box_area_exited"]
+[connection signal="body_entered" from="PlayerActivationBox" to="." method="_on_player_activation_box_body_entered"]
+[connection signal="body_exited" from="PlayerActivationBox" to="." method="_on_player_activation_box_body_exited"]

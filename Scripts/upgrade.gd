@@ -1,9 +1,11 @@
 extends Panel
 
+var disable_buy: bool
 var on_click_buy: Callable
 
 var display_name: String
 var desc: String
+var desc_addl: Callable
 var cost: Array
 
 # Called when the node enters the scene tree for the first time.
@@ -17,23 +19,21 @@ func update():
 
 	$"Effect".text = ""
 	$"Effect".push_color(Color.WHITE)
-	$"Effect".add_text(desc)
+	$"Effect".append_text(desc)
+	if desc_addl:
+		desc_addl.call($"Effect")
 
-	$"Button".pressed.connect(on_click_buy)
+	if disable_buy:
+		$"Button".disabled = true
+		$"Button".visible = false
+	else:
+		$"Button".disabled = false
+		$"Button".visible = true
+		$"Button".pressed.connect(on_click_buy)
 
 	for child in $"Costs".get_children():
 		child.queue_free()
 		
 	for item in cost:
-		if item is Node:
-			$"Costs".add_child(item)
-		elif item is String:
-			var txt = RichTextLabel.new()
-			txt.bbcode_enabled = true
-			txt.add_text(item)
-			$"Costs".add_child(txt)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		$"Costs".add_child(item)
+			

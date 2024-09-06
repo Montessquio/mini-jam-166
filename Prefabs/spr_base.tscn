@@ -1,10 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8evs1d87t8x"]
+[gd_scene load_steps=15 format=3 uid="uid://b8evs1d87t8x"]
 
 [ext_resource type="Texture2D" uid="uid://bhqb1f6tgga8f" path="res://Assets/spr_base.png" id="1_c4kit"]
 [ext_resource type="Texture2D" uid="uid://drl6ecvn8or7" path="res://Assets/deposit_paint.png" id="2_bv3l5"]
 [ext_resource type="Texture2D" uid="uid://dgvea87bw3jex" path="res://Assets/light.png" id="3_vjs1i"]
 [ext_resource type="Texture2D" uid="uid://cy83o1a30g8o" path="res://Assets/Store_paint.png" id="4_fb2le"]
 [ext_resource type="Script" path="res://Scripts/store_window_light.gd" id="5_go8qm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk2li"]
+size = Vector2(42.93, 64.59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ulyk7"]
 size = Vector2(1217, 1106)
@@ -35,6 +38,17 @@ z_index = 1
 position = Vector2(842, -133)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_c4kit")
+
+[node name="UpgradeShopPad" type="Area2D" parent="."]
+z_index = 2
+position = Vector2(517.695, -174.505)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeShopPad"]
+shape = SubResource("RectangleShape2D_wk2li")
+debug_color = Color(1, 0, 0, 0.0588235)
 
 [node name="FuelPad" type="Area2D" parent="."]
 z_index = 2
@@ -80,6 +94,7 @@ occluder = SubResource("OccluderPolygon2D_7n5ho")
 occluder = SubResource("OccluderPolygon2D_ufmii")
 
 [node name="deposit_paint" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-379.175, -43.09)
 texture = ExtResource("2_bv3l5")
 

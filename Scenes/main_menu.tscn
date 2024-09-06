@@ -1,0 +1,175 @@
+[gd_scene load_steps=17 format=3 uid="uid://c7ujegkuo7ibl"]
+
+[ext_resource type="Texture2D" uid="uid://bfjt81xbfafn6" path="res://Assets/bg.png" id="1_eb085"]
+[ext_resource type="Texture2D" uid="uid://cyn6u63gbaotm" path="res://Assets/logo.png" id="2_6kph0"]
+[ext_resource type="Script" path="res://Scripts/load_game_scene.gd" id="3_lt50d"]
+[ext_resource type="Script" path="res://Scripts/menu_music_player.gd" id="4_hoyw0"]
+[ext_resource type="AudioStream" uid="uid://ceh6itkbtryp6" path="res://Assets/Music/Weed Killer - Safe (intro).wav" id="5_jme5t"]
+[ext_resource type="AudioStream" uid="uid://dtggxhihig32w" path="res://Assets/Music/Weed Killer - Safe (drop).wav" id="6_q2giy"]
+[ext_resource type="Texture2D" uid="uid://dexpg4aglt1fu" path="res://Assets/tweety.png" id="7_0g7ci"]
+[ext_resource type="Texture2D" uid="uid://b26052atba8ul" path="res://Assets/NG.png" id="8_oluxx"]
+[ext_resource type="Texture2D" uid="uid://b2xjpoww2cy3n" path="res://Assets/SC.png" id="9_ncp6o"]
+[ext_resource type="Texture2D" uid="uid://ca6tqswys57xs" path="res://Assets/bluesky_media_kit_logo_transparent_1.png" id="10_7khqx"]
+
+[sub_resource type="FontVariation" id="FontVariation_gu3b4"]
+variation_embolden = 1.0
+spacing_glyph = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bq5d"]
+bg_color = Color(0.9, 0.66, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h871y"]
+bg_color = Color(0.901961, 0.658824, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4ffl"]
+bg_color = Color(0.67, 0.491333, 0, 1)
+
+[sub_resource type="Theme" id="Theme_12dly"]
+default_font = SubResource("FontVariation_gu3b4")
+Button/colors/font_color = Color(0.18, 0.18, 0.18, 1)
+Button/fonts/font = SubResource("FontVariation_gu3b4")
+Button/styles/hover = SubResource("StyleBoxFlat_3bq5d")
+Button/styles/normal = SubResource("StyleBoxFlat_h871y")
+Button/styles/pressed = SubResource("StyleBoxFlat_m4ffl")
+
+[sub_resource type="FontVariation" id="FontVariation_5gdnw"]
+spacing_top = 5
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_eb085")
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 404.0
+offset_top = 75.0
+offset_right = 778.0
+offset_bottom = 292.0
+texture = ExtResource("2_6kph0")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 476.0
+offset_top = 321.0
+offset_right = 704.0
+offset_bottom = 373.0
+theme = SubResource("Theme_12dly")
+text = "START"
+script = ExtResource("3_lt50d")
+local_root = NodePath("..")
+audio = NodePath("../AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("4_hoyw0")
+intro = ExtResource("5_jme5t")
+main = ExtResource("6_q2giy")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 457.0
+offset_right = 686.0
+offset_bottom = 589.0
+
+[node name="Controls" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 464.0
+offset_right = 686.0
+offset_bottom = 584.0
+bbcode_enabled = true
+text = "[center][u]Controls[/u]
+WASD - Move
+Mouse - Aim
+LMB/Space - Shoot
+Scroll - Zoom"
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_top = -10.0
+offset_right = 40.0
+offset_bottom = 30.0
+metadata/_edit_group_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 280.0
+offset_bottom = 81.0
+theme_override_fonts/normal_font = SubResource("FontVariation_5gdnw")
+bbcode_enabled = true
+text = "[left]Assets, Art Direction
+         @AthyDraws"
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/RichTextLabel"]
+position = Vector2(16, 47)
+scale = Vector2(0.028853, 0.028853)
+texture = ExtResource("7_0g7ci")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 71.0
+offset_right = 279.0
+offset_bottom = 142.0
+theme_override_fonts/normal_font = SubResource("FontVariation_5gdnw")
+bbcode_enabled = true
+text = "[left]Concept Art
+                   @DynamicAfro
+"
+
+[node name="Sprite2D3" type="Sprite2D" parent="Control/RichTextLabel2"]
+position = Vector2(57, 47)
+scale = Vector2(0.028853, 0.028853)
+texture = ExtResource("8_oluxx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/RichTextLabel2"]
+position = Vector2(16, 47)
+scale = Vector2(0.028853, 0.028853)
+texture = ExtResource("7_0g7ci")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 132.0
+offset_right = 280.0
+offset_bottom = 202.0
+theme_override_fonts/normal_font = SubResource("FontVariation_5gdnw")
+bbcode_enabled = true
+text = "Music
+         @r3coilofficial"
+
+[node name="Sprite2D4" type="Sprite2D" parent="Control/RichTextLabel3"]
+position = Vector2(17, 46)
+scale = Vector2(0.0997133, 0.0997133)
+texture = ExtResource("9_ncp6o")
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 196.0
+offset_right = 280.0
+offset_bottom = 266.0
+theme_override_fonts/normal_font = SubResource("FontVariation_5gdnw")
+bbcode_enabled = true
+text = "Programming
+         @monty.sh"
+
+[node name="Sprite2D5" type="Sprite2D" parent="Control/RichTextLabel4"]
+position = Vector2(16, 43)
+scale = Vector2(0.0263932, 0.0263932)
+texture = ExtResource("10_7khqx")
+
+[connection signal="pressed" from="StartButton" to="StartButton" method="_on_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
